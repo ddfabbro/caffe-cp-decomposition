@@ -1,7 +1,7 @@
 import numpy as np
 from sktensor import dtensor, cp_als
 import google.protobuf.text_format
-from utils import caffe, decompose_layer
+from cnn_cpd.utils import caffe, decompose_layer
 
 def decompose_model(model_def_path, model_weights_path, layer_ranks):
 
@@ -13,8 +13,10 @@ def decompose_model(model_def_path, model_weights_path, layer_ranks):
     
     new_model_def = caffe.proto.caffe_pb2.NetParameter()
     new_model_def.name = model_def.name + '_decomposed'
-    new_model_def.input.extend(['data'])
-    new_model_def.input_dim.extend(model_def.input_dim)
+    
+    if model_def.input:
+        new_model_def.input.extend(['data'])
+        new_model_def.input_dim.extend(model_def.input_dim)
     
     new_layers = [] #Keeping track of new layers helps renaming nodes in the future
 

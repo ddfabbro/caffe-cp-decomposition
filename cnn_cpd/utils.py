@@ -1,6 +1,6 @@
 import caffe
 
-def def_conv_layer(name, num_output, group, kernel_size, pad, stride):
+def conv_layer(name, num_output, group, kernel_size, pad, stride):
     layer = caffe.proto.caffe_pb2.LayerParameter()
     layer.type = 'Convolution'
     layer.name = name
@@ -38,10 +38,10 @@ def decompose_layer(layer, rank):
     stride = param.stride if hasattr(param, 'stride') else 1
     
     decomposed_layer = [
-        def_conv_layer(name[0], rank, 1, [1,1], [0,0], [1,1]),
-        def_conv_layer(name[1], rank, rank, [kernel_size, 1], [pad,0], [stride,1]),
-        def_conv_layer(name[2], rank, rank, [1, kernel_size], [0,pad], [1,stride]),
-        def_conv_layer(name[3], num_output, 1, [1,1], pad=[0,0], stride=[1,1]),
+        conv_layer(name[0], rank, 1, [1,1], [0,0], [1,1]),
+        conv_layer(name[1], rank, rank, [kernel_size, 1], [pad,0], [stride,1]),
+        conv_layer(name[2], rank, rank, [1, kernel_size], [0,pad], [1,stride]),
+        conv_layer(name[3], num_output, 1, [1,1], pad=[0,0], stride=[1,1]),
     ]
     
     return decomposed_layer
