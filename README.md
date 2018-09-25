@@ -13,5 +13,5 @@ It also fixes some bugs and remove unnecessary complexity, making the usage and 
 
 With simplicity in mind, some limitations arises such as:
 
-- Convolutional layer paramaters that are non-uniform (e.g `kernel_h`, `kernel_h`) are not supported. However, you can easily modify the code to your needs.
+- Convolutional layer paramaters that are non-uniform (e.g `kernel_h`, `kernel_w`, `pad_h`, `pad_w`, `stride_h` and `stride_w` ) are not supported. However, you can easily modify the code to your needs.
 - Multi branches not supported.
