@@ -1,15 +1,17 @@
-This is an implemetation of the method from our paper **Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition**
-https://arxiv.org/pdf/1412.6553.pdf
-MNIST example, based on MNIST example from caffe, is provided.
+This is a heavy modification of the original [cp-algorithm](https://github.com/vadim-v-lebedev/cp-decomposition) thats implements the method from their paper [Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition](https://arxiv.org/pdf/1412.6553.pdf).
 
-Requrements: caffe, python with numpy and scikit-tensor
+The most important modification is that now you can decompose more than one layer, according to given tensor rank (refer to  	`cpd_example.py`).
 
-How to make it work:
+It also fixes some bugs and remove unnecessary complexity, making the usage and extensibility much simpler. In other words, it does what it is supposed to do: [CP decomposition](https://en.wikipedia.org/wiki/Tensor_rank_decomposition) of convolutional layers. No more, no less.
 
-1. Set paths to your caffe installation in **paths.py**
-2. In lenet/lenet.prototxt, edit "source" params of input layers, or copy **mnist_train_lmbd** and **mnist_test_lmdb** from caffe/examples/mnist here. LeNet needs input data!
-3. run lenet/main.py, for example like this `python lenet/main.py 5 conv2`. First parameter of this script is the number of components R, and the second is layer name. Biggger R leads to more accurate, but slower models. The script will produce model lenet_accelerated.prototxt and weights file lenet_accelerated.caffemodel
-4. Now you can evaluate accelerated model ```
-$CAFFE_ROOT/build/tools/caffe time --model lenet_accelerated.prototxt
-$CAFFE_ROOT/build/tools/caffe test --model lenet_accelerated.prototxt -weights lenet_accelerated.caffemodel```
-5. As shown in the paper, finetuning of accelerated model can improve accuracy
+## Requirements
+
+- `pycaffe`
+- `scikit-tensor`
+
+## Limitations
+
+With simplicity in mind, some limitations arises such as:
+
+- Convolutional layer paramaters that are non-uniform (e.g `kernel_h`, `kernel_h`) are not supported. However, you can easily modify the code to your needs.
+- Multi branches not supported.
