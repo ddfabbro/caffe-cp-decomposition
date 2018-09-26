@@ -1,3 +1,4 @@
+# caffe-cp-decomposition
 This is a heavy modification of the original [cp-decomposition](https://github.com/vadim-v-lebedev/cp-decomposition) algorithm that implements the method from their paper [Speeding-up Convolutional Neural Networks Using Fine-tuned CP-Decomposition](https://arxiv.org/pdf/1412.6553.pdf).
 
 The most important modification is that now you can decompose more than one layer, according to given tensor rank (refer to  	`cpd_example.py`).
